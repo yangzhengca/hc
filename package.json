@@ -12,8 +12,10 @@
     "devDependencies": {
         "lerna": "^6.4.1"
     },
-    "workspaces": [
-        "packages/*"
-    ],
-    "nohoist": ["packages/**/*/@nestjs", "packages/**/*/@nestjs**"]
+    "workspaces": {
+        "packages": [
+            "packages/*"
+        ],
+        "nohoist": ["**/@nestjs", "**/@nestjs/**"]
+    }
 }
