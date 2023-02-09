@@ -7,17 +7,25 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"migrations/*.js\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "gt:gen": "rimraf src/generated/*.json && graphql-codegen --config codegen.yml && npx prettier --write src/generated/*",
+    "create:dev": "NODE_ENV=development npx sequelize-cli db:create",
+    "drop:dev": "NODE_ENV=development npx sequelize-cli db:drop",   
+    "migrate:dev": "NODE_ENV=development npx sequelize-cli db:migrate --debug",
+    "migrate:reset": "NODE_ENV=development npx sequelize-cli db:migrate:undo:all",
+    "migrate:rollback": "NODE_ENV=development npx sequelize-cli db:migrate:undo",
+    "migrate:seed": "NODE_ENV=development npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all --debug",
+    "seed:dev": "npx sequelize-cli db:seed:all --debug"
   },
   "dependencies": {
     "@nestjs/apollo": "^10.1.7",
@@ -30,7 +38,10 @@
     "graphql": "^16.6.0",
     "graphql-subscriptions": "^2.0.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "sequelize": "^6.28.0",
+    "sequelize-cli": "^6.6.0",
+    "sequelize-typescript": "^2.1.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
