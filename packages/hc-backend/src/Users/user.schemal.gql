@@ -1,0 +1,42 @@
+type User {
+  id: Int!
+  firstName: String!
+  lastName: String
+  email: String!
+  phone: String
+  image: String
+  resetPasswordToken: String
+  password: String
+  verifiedToken: String
+  verified: Boolean!
+  roles: [UserRoles!]!
+  userType: [String!]!
+  lastLoginAt: Date
+}
+
+enum UserRoles {
+  admin
+  blogger
+}
+
+input InputUser {
+  id: Int
+  firstName: String!
+  lastName: String
+  email: String!
+  phone: String
+  image: String
+  resetPasswordToken: String
+  password: String
+  verifiedToken: String
+  verified: Boolean
+  userType: [String!]
+}
+
+type Query {
+
+}
+
+type Mutation {
+
+}
